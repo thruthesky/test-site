@@ -25,7 +25,13 @@ Production mode:
 - Deploy on Dokploy
 - Use auto deploy from `git push origin main`
 - Use Traefik-generated production domain
-- Put Dokploy deployment assets under `laravel/deploy/dokploy/`
+- Put Dokploy deployment assets under `deploy/dokploy/`
+
+Runtime entry requirements:
+- all browser page requests are handled by `index.php`
+- all backend API requests are handled by `api.php`
+- backend code is 100% API-driven
+- Nginx rewrites non-file browser routes to `index.php`
 
 ## Core users
 
@@ -167,19 +173,22 @@ Acceptance criteria:
 ## Non-functional requirements
 
 - Bootstrap-based responsive layout for desktop and mobile
-- Accessible server-rendered navigation
+- accessible navigation and page shell rendering
 - CSRF protection on all state-changing requests
 - Authorization on all protected actions
 - Rate limiting for auth and abuse-prone actions where practical
 - File uploads must validate type and size
 - PostgreSQL schema must support menu tree, posts, comments, users, and media references
+- web pages must fetch application data through `api.php`
 
 ## Recommended first implementation decisions
 
-- Laravel application with Blade templates
+- plain PHP application without Laravel or other heavyweight framework
+- layered backend with `Entity`, `Repository`, `Service`, `Controller`
+- one browser shell entrypoint at `index.php`
+- one backend API entrypoint at `api.php`
 - Bootstrap for layout and components
-- Vue 3 via CDN only for interactive islands such as hover menus, inline comment interactions, and file upload previews
-- Laravel auth scaffolding customized to project needs
+- Vue 3 via CDN for page interactions and API-driven UI rendering
 - Threaded comments implemented with adjacency list parent references first
 - Profile photos stored on public disk with persistent volume
 
@@ -190,4 +199,4 @@ Acceptance criteria:
 - private messaging
 - advanced search
 - multi-language support
-- headless API-first architecture
+- additional REST endpoint splitting beyond the single `api.php` entry contract

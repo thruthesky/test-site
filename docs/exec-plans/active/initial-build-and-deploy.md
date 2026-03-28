@@ -9,14 +9,17 @@ Implement the first complete version of the member-management and board site loc
 ## Phase 1. Repository bootstrap
 
 Deliverables:
-- Laravel app scaffold in `laravel/`
+- plain PHP app scaffold
+- `index.php` browser entrypoint
+- `api.php` backend API entrypoint
 - local Docker setup with Nginx, PHP-FPM, PostgreSQL
 - base README update if needed
 - committed project structure that matches `docs/ARCHITECTURE.md`
 
 Exit criteria:
 - app boots locally through Docker
-- homepage route renders
+- browser routes resolve to `index.php`
+- API requests resolve to `api.php`
 
 ## Phase 2. Authentication and member profile
 
@@ -69,8 +72,8 @@ Exit criteria:
 ## Phase 6. Dokploy deployment assets
 
 Deliverables:
-- `laravel/deploy/dokploy/Dockerfile`
-- `laravel/deploy/dokploy/docker-compose.yaml`
+- `deploy/dokploy/Dockerfile`
+- `deploy/dokploy/docker-compose.yaml`
 - Dokploy-ready Nginx config
 - documented env variables
 
@@ -91,6 +94,7 @@ Exit criteria:
 ## Risks
 
 - empty repository means all scaffolding must be created from scratch
+- single `api.php` backend entrypoint requires disciplined route design
 - threaded comments and menu-category coupling require careful schema design
 - file upload persistence must be handled correctly in both dev and prod
 - Dokploy details may require adaptation during execution

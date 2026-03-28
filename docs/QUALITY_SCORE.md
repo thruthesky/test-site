@@ -16,7 +16,9 @@ This file tracks readiness by domain so future implementation can focus on the h
 | Domain | Score | Notes |
 |---|---:|---|
 | Documentation harness | 1 | Initial Harness-style docs created |
-| Laravel bootstrap | 0 | Not started |
+| Plain PHP bootstrap | 0 | Not started |
+| `index.php` web entry | 0 | Not started |
+| `api.php` backend entry | 0 | Not started |
 | Local Docker runtime | 0 | Not started |
 | Authentication | 0 | Not started |
 | Profile photo upload | 0 | Not started |

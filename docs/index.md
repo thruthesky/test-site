@@ -29,7 +29,7 @@ Current verification state:
 - Architecture baseline: drafted
 - Initial implementation plan: drafted
 - Dokploy production plan: drafted
-- Codebase bootstrap: not started
+- Pure PHP codebase bootstrap: not started
 - Local Docker environment: not started
 - Production deployment: not started
 

@@ -12,16 +12,16 @@ This repository adopts a Harness-style operating model: humans steer, agents exe
 - Durable truth belongs in `docs/`.
 
 3. Boring technology wins
-- Prefer Laravel, Blade, Bootstrap, Vue CDN, Nginx, PHP-FPM, PostgreSQL, Docker, and Dokploy.
-- Avoid unnecessary client-side build systems for the initial product.
+- Prefer plain PHP, Bootstrap, Vue CDN, Nginx, PHP-FPM, PostgreSQL, Docker, and Dokploy.
+- Avoid unnecessary frameworks and client-side build systems for the initial product.
 
-4. Server-rendered first
-- Most pages should work with standard server rendering.
-- Vue should enhance targeted UI fragments, not replace the whole app.
+4. API-first backend
+- All backend behavior must be exposed through `api.php`.
+- Web pages should consume the backend through HTTP APIs, not hidden PHP page logic.
 
 5. Strict boundaries over cleverness
-- Routes, controllers, services, policies, validation, and persistence each have clear roles.
-- Business rules should not be duplicated between views and controllers.
+- Entities, repositories, services, controllers, routing, validation, and persistence each have clear roles.
+- Business rules should not be duplicated between controllers, views, and entrypoints.
 
 6. Data integrity at the boundary
 - Validate request input.

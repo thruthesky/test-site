@@ -2,12 +2,14 @@
 
 ## Architectural goal
 
-Build a maintainable Laravel-based community site that is easy for both humans and agents to reason about.
+Build a maintainable plain-PHP community site that is easy for both humans and agents to reason about.
 
 ## Chosen baseline
 
-- Framework: Laravel
-- Rendering: Blade templates
+- Framework: none
+- Architecture: `Entity` + `Repository` + `Service` + `Controller`
+- Browser entry: `index.php`
+- API entry: `api.php`
 - Styling: Bootstrap
 - Small interactive UI: Vue.js via CDN
 - Web server: Nginx
@@ -21,37 +23,38 @@ Build a maintainable Laravel-based community site that is easy for both humans a
 - It matches the required environment.
 - It is boring, legible, and well-documented.
 - It minimizes moving parts for an initial release.
-- It supports server-rendered pages with targeted interactive enhancement.
+- It enforces a clear split between page delivery and backend behavior.
 
 ## Proposed top-level structure
 
 ```text
-laravel/
-  app/
-    Actions/
-    Http/
-      Controllers/
-      Requests/
-    Models/
-    Policies/
-    Services/
-  bootstrap/
-  config/
-  database/
-    migrations/
-    seeders/
-  public/
-  resources/
-    views/
-    js/
-  routes/
-  storage/
-  tests/
-  deploy/
-    dokploy/
-      Dockerfile
-      docker-compose.yaml
-      nginx/
+app/
+  Bootstrap/
+  Config/
+  Controller/
+    Api/
+    Web/
+  Entity/
+  Repository/
+  Service/
+  Http/
+  Routing/
+  Validation/
+  View/
+database/
+  migrations/
+  seeders/
+public/
+  index.php
+  api.php
+  assets/
+storage/
+tests/
+deploy/
+  dokploy/
+    Dockerfile
+    docker-compose.yaml
+    nginx/
 ```
 
 ## Domain model
@@ -82,29 +85,50 @@ Comment model rules:
 - comment may belong to parent comment
 - thread depth should remain readable in UI
 
+## Entry-point rules
+
+`index.php`:
+- handles all browser page requests
+- loads the shared page shell
+- resolves web routes for page rendering
+- must not contain domain business logic
+
+`api.php`:
+- handles all backend API requests
+- returns JSON responses only
+- dispatches request method plus route to API controllers
+- owns all read and write operations for application data
+
+Nginx rewrite behavior:
+- non-file browser requests rewrite to `index.php`
+- direct API requests target `api.php`
+- existing static files should be served directly when present
+
 ## Application layer rules
 
-Routes:
-- group public, auth, member, and admin routes clearly
+Routing:
+- keep web routing and API routing separate internally
+- web routes resolve pages through `index.php`
+- API routes resolve actions through `api.php`
 
 Controllers:
 - accept request
 - authorize
-- delegate business work
-- return response
+- delegate business work to services
+- return either HTML shell response or JSON response depending on entrypoint
 
-Form requests:
-- centralize validation
+Entities:
+- express domain state and domain invariants
 
-Services or actions:
+Repositories:
+- own persistence queries and hydration
+
+Services:
 - own non-trivial business workflows
-- examples: create post, create comment, update profile, reorder categories
+- examples: sign in, create post, create comment, update profile, reorder categories
 
-Policies:
-- own permission decisions for posts, comments, profiles, and admin functions
-
-Models:
-- keep relations, scopes, casts, and lightweight helpers only
+Validation:
+- centralize request validation rules
 
 Views:
 - presentation only
@@ -112,18 +136,17 @@ Views:
 
 ## UI composition
 
-Server-rendered layout:
-- one shared application shell
+Web shell:
+- one shared application shell served through `index.php`
 - header with two-level menu
 - left sidebar widget area
 - center content slot
 - right sidebar widget area
 
-Vue CDN usage:
-- menu hover enhancement if needed
-- image preview for profile upload
-- threaded comment reply toggles
-- minor progressive enhancement only
+Frontend data flow:
+- page shells and layouts are loaded through web routes
+- page data and mutations go through `api.php`
+- Vue CDN handles API-driven interaction where needed
 
 ## Persistence rules
 
@@ -151,7 +174,7 @@ Production:
 - persistent Dokploy volume for uploaded files
 
 Default behavior:
-- serve profile photos from Laravel public storage link or equivalent public path
+- serve profile photos from a public uploads path backed by persistent storage
 
 ## Environment parity
 
@@ -170,3 +193,5 @@ Required before production:
 - post and comment authorization verified
 - file upload persistence verified
 - Dokploy deployment assets committed
+- `index.php` rewrite behavior verified
+- `api.php` request flow verified

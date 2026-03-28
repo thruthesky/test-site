@@ -31,15 +31,19 @@ Product scope:
 
 Required implementation stack:
 - Development: Docker, Nginx, PHP, PostgreSQL, Bootstrap, Vue.js via CDN.
-- Application style: server-rendered first, progressive enhancement second.
+- Backend style: 100% API-driven.
+- Web entry: all browser page requests are handled by `index.php`.
+- API entry: all backend API requests are handled by `api.php`.
 - Production: Dokploy auto deploy from `git push origin main`.
 
 Project conventions:
-- Favor Laravel + Blade + Bootstrap + Vue CDN unless docs are updated.
-- Prefer server-rendered pages and simple controllers/services over heavy SPA patterns.
+- Favor plain PHP with `Entity`, `Repository`, `Service`, and `Controller`.
+- Keep domain logic behind API endpoints only.
+- Let `index.php` provide the web shell and page routing entry.
 - Keep frontend JavaScript minimal and page-local.
 - Use PostgreSQL-native constraints for integrity where practical.
 - Store uploads in a persistent public disk volume.
+- Nginx must rewrite browser routes to `index.php`.
 
 Definition of done for implementation tasks:
 - Product behavior matches the product spec.
@@ -63,7 +67,8 @@ Documentation maintenance rules:
 
 What not to do:
 - Do not introduce a frontend build pipeline if Vue CDN is sufficient.
-- Do not split business rules across controllers and views without a documented reason.
+- Do not place business rules in views or in `index.php`.
+- Do not bypass `api.php` for backend mutations or reads.
 - Do not hide requirements in chat-only decisions.
 - Do not deploy from undocumented configuration.
 
