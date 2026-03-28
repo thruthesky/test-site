@@ -1,0 +1,11 @@
+.env
+.DS_Store
+vendor/
+storage/logs/
+storage/cache/
+storage/tmp/
+storage/sessions/*
+!storage/sessions/.gitkeep
+public/uploads/profiles/*
+!public/uploads/profiles/.gitkeep
+

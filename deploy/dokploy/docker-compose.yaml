@@ -1,0 +1,52 @@
+services:
+  app:
+    build:
+      context: ../..
+      dockerfile: deploy/dokploy/Dockerfile
+    restart: unless-stopped
+    environment:
+      APP_NAME: ${APP_NAME:-Test Site}
+      APP_ENV: ${APP_ENV:-production}
+      APP_DEBUG: ${APP_DEBUG:-false}
+      APP_URL: ${APP_URL:-http://localhost}
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_DATABASE: ${DB_DATABASE:-test_site}
+      DB_USERNAME: ${DB_USERNAME:-test_site}
+      DB_PASSWORD: ${DB_PASSWORD:-test_site}
+      SESSION_SAVE_PATH: /var/www/html/storage/sessions
+      UPLOAD_PUBLIC_PATH: /var/www/html/public/uploads/profiles
+      UPLOAD_PUBLIC_URL_BASE: /uploads/profiles
+    volumes:
+      - app_storage:/var/www/html/storage
+      - app_uploads:/var/www/html/public/uploads
+    depends_on:
+      - db
+
+  web:
+    image: nginx:1.27-alpine
+    restart: unless-stopped
+    depends_on:
+      - app
+    ports:
+      - "80:80"
+    volumes:
+      - ../..:/var/www/html:ro
+      - app_uploads:/var/www/html/public/uploads
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${DB_DATABASE:-test_site}
+      POSTGRES_USER: ${DB_USERNAME:-test_site}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-test_site}
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+volumes:
+  db_data:
+  app_storage:
+  app_uploads:
+

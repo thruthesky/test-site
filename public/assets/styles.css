@@ -1,0 +1,129 @@
+:root {
+  --site-bg: #f4efe6;
+  --site-paper: #fffaf2;
+  --site-border: #d7c5a4;
+  --site-ink: #2f2419;
+  --site-accent: #a44a1d;
+  --site-accent-soft: #f3d6bf;
+  --site-muted: #75624d;
+}
+
+body {
+  background:
+    radial-gradient(circle at top left, rgba(255, 255, 255, 0.7), transparent 30%),
+    linear-gradient(180deg, #efe0c9 0%, var(--site-bg) 50%, #f7f0e8 100%);
+  color: var(--site-ink);
+  min-height: 100vh;
+}
+
+.site-shell {
+  min-height: 100vh;
+}
+
+.site-brand {
+  font-size: 1.75rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+}
+
+.panel-card {
+  background: rgba(255, 250, 242, 0.92);
+  border: 1px solid var(--site-border);
+  border-radius: 1rem;
+  box-shadow: 0 0.8rem 2rem rgba(81, 52, 20, 0.08);
+}
+
+.panel-card .card-header {
+  background: transparent;
+  border-bottom: 1px solid rgba(167, 126, 77, 0.22);
+  font-weight: 700;
+}
+
+.nav-pills .nav-link.active,
+.btn-primary {
+  background-color: var(--site-accent);
+  border-color: var(--site-accent);
+}
+
+.btn-outline-primary {
+  border-color: var(--site-accent);
+  color: var(--site-accent);
+}
+
+.btn-outline-primary:hover {
+  background-color: var(--site-accent);
+  border-color: var(--site-accent);
+}
+
+.menu-bar {
+  background: rgba(61, 44, 28, 0.95);
+}
+
+.menu-bar .nav-link,
+.menu-bar .dropdown-item {
+  color: #fff4e8;
+}
+
+.menu-bar .dropdown-item:hover,
+.menu-bar .dropdown-item:focus {
+  background: rgba(164, 74, 29, 0.12);
+  color: var(--site-accent);
+}
+
+.menu-hover:hover > .dropdown-menu {
+  display: block;
+}
+
+.post-body,
+.comment-content {
+  white-space: pre-wrap;
+}
+
+.comment-node {
+  border-left: 3px solid rgba(164, 74, 29, 0.18);
+}
+
+.comment-node .comment-actions button,
+.post-actions button {
+  margin-right: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.photo-thumb {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 0.8rem;
+  border: 1px solid rgba(167, 126, 77, 0.24);
+}
+
+.sidebar-list a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.sidebar-list a:hover {
+  color: var(--site-accent);
+}
+
+.route-link {
+  cursor: pointer;
+}
+
+.hero-banner {
+  background: linear-gradient(135deg, rgba(164, 74, 29, 0.9), rgba(47, 36, 25, 0.88));
+  color: white;
+  border-radius: 1rem;
+}
+
+@media (max-width: 991.98px) {
+  .site-side-left,
+  .site-side-right {
+    order: 2;
+  }
+
+  .site-center {
+    order: 1;
+  }
+}
+
