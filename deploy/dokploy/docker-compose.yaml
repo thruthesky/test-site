@@ -28,8 +28,6 @@ services:
     restart: unless-stopped
     depends_on:
       - app
-    ports:
-      - "80:80"
     volumes:
       - ../..:/var/www/html:ro
       - app_uploads:/var/www/html/public/uploads
@@ -49,4 +47,3 @@ volumes:
   db_data:
   app_storage:
   app_uploads:
-
