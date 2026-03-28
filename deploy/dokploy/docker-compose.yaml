@@ -1,5 +1,5 @@
 services:
-  app:
+  sitephp:
     build:
       context: ../..
       dockerfile: deploy/dokploy/Dockerfile
@@ -29,7 +29,7 @@ services:
     image: nginx:1.27-alpine
     restart: unless-stopped
     depends_on:
-      - app
+      - sitephp
     volumes:
       - ../..:/var/www/html:ro
       - app_uploads:/var/www/html/public/uploads
