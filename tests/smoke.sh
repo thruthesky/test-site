@@ -14,6 +14,9 @@ extract_csrf() {
 }
 
 CSRF_TOKEN="$(extract_csrf)"
+STAMP="$(date +%s)"
+EMAIL="admin-${STAMP}@example.com"
+USERNAME="admin${STAMP}"
 
 echo "Checking homepage..."
 curl -fsS "$BASE_URL/" >/dev/null
@@ -22,7 +25,7 @@ echo "Registering user..."
 curl -fsS -b "$COOKIE_JAR" -c "$COOKIE_JAR" \
   -H "Content-Type: application/json" \
   -H "X-CSRF-Token: $CSRF_TOKEN" \
-  -d '{"email":"admin@example.com","username":"admin","display_name":"Admin","password":"secret123","bio":"first user"}' \
+  -d "{\"email\":\"$EMAIL\",\"username\":\"$USERNAME\",\"display_name\":\"Admin\",\"password\":\"secret123\",\"bio\":\"first user\"}" \
   "$BASE_URL/api.php?route=/auth/register" >/dev/null
 
 echo "Creating categories..."
@@ -61,4 +64,3 @@ echo "Checking post page..."
 curl -fsS "$BASE_URL/post/$POST_ID" >/dev/null
 
 echo "Smoke test completed."
-

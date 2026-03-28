@@ -8,7 +8,7 @@ services:
       APP_ENV: ${APP_ENV:-local}
       APP_DEBUG: ${APP_DEBUG:-true}
       APP_URL: ${APP_URL:-http://localhost:8080}
-      DB_HOST: db
+      DB_HOST: 172.31.0.11
       DB_PORT: 5432
       DB_DATABASE: ${DB_DATABASE:-test_site}
       DB_USERNAME: ${DB_USERNAME:-test_site}
@@ -22,6 +22,9 @@ services:
       - app_uploads:/var/www/html/public/uploads
     depends_on:
       - db
+    networks:
+      internal:
+        ipv4_address: 172.31.0.10
 
   web:
     image: nginx:1.27-alpine
@@ -33,6 +36,9 @@ services:
       - .:/var/www/html:ro
       - app_uploads:/var/www/html/public/uploads
       - ./deploy/dokploy/nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+    networks:
+      internal:
+        ipv4_address: 172.31.0.20
 
   db:
     image: postgres:16-alpine
@@ -44,8 +50,17 @@ services:
       - "5433:5432"
     volumes:
       - db_data:/var/lib/postgresql/data
+    networks:
+      internal:
+        ipv4_address: 172.31.0.11
 
 volumes:
   db_data:
   app_storage:
   app_uploads:
+
+networks:
+  internal:
+    ipam:
+      config:
+        - subnet: 172.31.0.0/24
