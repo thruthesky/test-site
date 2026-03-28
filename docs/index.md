@@ -2,11 +2,11 @@
 
 This `docs/` directory is the repository knowledge base and system of record for future implementation.
 
-Design principles from the Harness approach:
+Documentation principles:
 - `AGENTS.md` is the table of contents, not the encyclopedia.
-- Repository-local markdown is preferred over undocumented chat decisions.
+- Repository markdown is preferred over undocumented chat decisions.
 - Plans, architecture, deployment rules, and quality gaps are versioned together.
-- The goal is agent legibility, predictable structure, and low-entropy delivery.
+- The goal is predictable structure, clear ownership, and low-entropy delivery.
 
 Read order:
 1. [`../AGENTS.md`](/Users/thruthesky/tmp/test/site/AGENTS.md)
@@ -18,7 +18,7 @@ Read order:
 7. [`QUALITY_SCORE.md`](/Users/thruthesky/tmp/test/site/docs/QUALITY_SCORE.md)
 
 Directory map:
-- `design-docs/`: agent-first principles and enduring design decisions.
+- `design-docs/`: enduring engineering decisions and working principles.
 - `product-specs/`: user-visible requirements and acceptance criteria.
 - `deployment/`: production deployment constraints and runbooks.
 - `exec-plans/active/`: active multi-step plans for implementation.

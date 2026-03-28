@@ -1,9 +1,9 @@
 # AGENTS.md
 
-This repository follows a Harness-style workflow inspired by OpenAI's "Harness engineering: leveraging Codex in an agent-first world".
+This file is the entry point for the project documentation.
 
 Purpose:
-- Build a member-management and board website with a repository-first knowledge base.
+- Build a member-management and board website with clear, versioned project documentation.
 - Keep `AGENTS.md` short and use `docs/` as the source of truth.
 - Favor boring, legible, low-entropy technology and explicit acceptance criteria.
 
@@ -19,7 +19,7 @@ Operating rules:
 - Do not treat this file as the full spec. Follow the linked docs.
 - When behavior, naming, or architecture is unclear, update docs before or along with code.
 - Keep the stack stable unless a doc explicitly changes it.
-- Prefer repository-local knowledge over chat context.
+- Prefer committed project docs over undocumented decisions.
 - Keep changes incremental, testable, and easy to review.
 
 Product scope:

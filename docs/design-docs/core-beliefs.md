@@ -1,10 +1,10 @@
 # Core Beliefs
 
-This repository adopts a Harness-style operating model: humans steer, agents execute, and the repository carries the durable context.
+This repository uses simple project documentation so implementation, deployment, and maintenance decisions remain explicit.
 
 ## Beliefs
 
-1. Repository-first knowledge
+1. Project documentation is authoritative
 - If a decision matters during implementation or deployment, it must live in this repository.
 
 2. AGENTS is a map
@@ -46,6 +46,6 @@ This repository adopts a Harness-style operating model: humans steer, agents exe
 11. Docs change with code
 - If implementation reveals a better decision, update docs in the same change set.
 
-12. Optimize for future agent runs
+12. Optimize for future maintenance
 - Names, folders, and abstractions should be explicit and unsurprising.
 - Hidden conventions are a defect.

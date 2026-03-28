@@ -15,7 +15,7 @@ This file tracks readiness by domain so future implementation can focus on the h
 
 | Domain | Score | Notes |
 |---|---:|---|
-| Documentation harness | 1 | Initial Harness-style docs created |
+| Project documentation | 1 | Initial project docs created |
 | Plain PHP bootstrap | 0 | Not started |
 | `index.php` web entry | 0 | Not started |
 | `api.php` backend entry | 0 | Not started |

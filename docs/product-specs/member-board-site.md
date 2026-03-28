@@ -183,7 +183,7 @@ Acceptance criteria:
 
 ## Recommended first implementation decisions
 
-- plain PHP application without Laravel or other heavyweight framework
+- plain PHP application
 - layered backend with `Entity`, `Repository`, `Service`, `Controller`
 - one browser shell entrypoint at `index.php`
 - one backend API entrypoint at `api.php`
